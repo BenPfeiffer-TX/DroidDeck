@@ -78,7 +78,7 @@ data class GpuInfo(
             val samsung = Build.MANUFACTURER.equals("samsung", ignoreCase = true)
             val isX1 = model == 741 || raw?.contains("X1-", ignoreCase = true) == true
             val gpuDisplayName = when {
-                !adreno -> Build.HARDWARE.ifBlank { UNNAMED }
+                !adreno -> (Build.HARDWARE ?: "").ifBlank { UNNAMED }
                 isX1 -> "Adreno X1-85"
                 model > 0 -> "Adreno $model"
                 else -> "Adreno"
