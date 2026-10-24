@@ -25,6 +25,20 @@ class GpuModelFallbackTest {
         assertEquals(750, GpuInfo.parseModel("Adreno750"))
         assertEquals(0, GpuInfo.parseModel("unknown"))
     }
+
+    @Test fun x1VariantNamesAreDistinguished() {
+        assertEquals("Adreno X1-85", GpuInfo.x1Name(raw = "Adreno X1-85"))
+        assertEquals("Adreno X1-85", GpuInfo.x1Name(vulkan = "Adreno(TM) X1-85"))
+        assertEquals("Adreno X1-85", GpuInfo.x1Name(platform = "hamoa"))
+        assertEquals("Adreno X1-85", GpuInfo.x1Name(platform = "sc8380xp"))
+        assertEquals("Adreno X1-85", GpuInfo.x1Name(platform = "x1e80100"))
+        assertEquals("Adreno X1-45", GpuInfo.x1Name(raw = "Adreno X1-45"))
+        assertEquals("Adreno X1-45", GpuInfo.x1Name(vulkan = "Adreno(TM) X1-45"))
+        assertEquals("Adreno X1-45", GpuInfo.x1Name(platform = "purwa"))
+        assertEquals("Adreno X1-45", GpuInfo.x1Name(raw = "X1-45", platform = "hamoa"))
+        assertEquals("Adreno X1", GpuInfo.x1Name(raw = "Adreno 741", platform = "unknown"))
+        assertEquals("Adreno X1", GpuInfo.x1Name())
+    }
     @Test fun sm8975IsTheOnlyNewSocFallback() {
         assertEquals(850, GpuInfo.platformModel("unknown", "", "SM8975"))
         assertEquals(850, GpuInfo.platformModel("unknown", "", "QTI SM8975"))
